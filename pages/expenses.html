@@ -1,1 +1,130 @@
+<div class="space-y-4">
 
+    <div>
+        <h2 class="text-2xl font-bold text-slate-800">
+            Expenses
+        </h2>
+        <p class="text-sm text-slate-500">
+            Track daily expenses using simple text input
+        </p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-4">
+
+        <label class="block text-sm font-medium mb-2">
+            Expense Entry
+        </label>
+
+        <input
+            id="expenseText"
+            type="text"
+            placeholder="spent 450 on petrol"
+            class="w-full border rounded-lg p-3">
+
+        <button
+            onclick="Expenses.add()"
+            class="w-full bg-purple-600 text-white p-3 rounded-lg mt-3 font-semibold hover:bg-purple-700">
+            Add Expense
+        </button>
+
+        <div class="mt-3 text-sm text-gray-500">
+            Examples:
+            <ul class="list-disc list-inside mt-1">
+                <li>spent 450 on petrol</li>
+                <li>food 250</li>
+                <li>rent 8000</li>
+                <li>shopping 999</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-4">
+
+        <div class="flex justify-between items-center mb-3">
+
+            <h3 class="text-lg font-semibold">
+                Expense History
+            </h3>
+
+            <span
+                id="expenseCount"
+                class="text-sm text-gray-500">
+                0 Records
+            </span>
+
+        </div>
+
+        <div
+            id="expenseList"
+            class="space-y-2">
+
+            <div class="text-center text-gray-400 py-4">
+                No expenses available
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-4">
+
+        <h3 class="text-lg font-semibold mb-3">
+            Categories Supported
+        </h3>
+
+        <div class="grid grid-cols-2 gap-2 text-sm">
+
+            <div class="bg-gray-100 rounded p-2">
+                Food
+            </div>
+
+            <div class="bg-gray-100 rounded p-2">
+                Petrol
+            </div>
+
+            <div class="bg-gray-100 rounded p-2">
+                Shopping
+            </div>
+
+            <div class="bg-gray-100 rounded p-2">
+                Travel
+            </div>
+
+            <div class="bg-gray-100 rounded p-2">
+                Rent
+            </div>
+
+            <div class="bg-gray-100 rounded p-2">
+                LPG
+            </div>
+
+            <div class="bg-gray-100 rounded p-2">
+                Utensils
+            </div>
+
+            <div class="bg-gray-100 rounded p-2">
+                Haircare
+            </div>
+
+            <div class="bg-gray-100 rounded p-2">
+                Hospital
+            </div>
+
+            <div class="bg-gray-100 rounded p-2">
+                Family
+            </div>
+
+            <div class="bg-gray-100 rounded p-2">
+                Personal
+            </div>
+
+            <div class="bg-gray-100 rounded p-2">
+                Other
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
