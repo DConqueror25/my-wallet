@@ -2,7 +2,7 @@ const Portfolio = {
 
     save() {
 
-        const data = {
+        const portfolio = {
 
             bank: Number(
                 document.getElementById("bank").value || 0
@@ -21,29 +21,73 @@ const Portfolio = {
             )
         };
 
-        Storage.set(
-            "portfolio",
-            data
-        );
+        const success =
+            Storage.set(
+                "portfolio",
+                portfolio
+            );
 
-        alert("Portfolio Saved");
+        if (success) {
+
+            if (typeof Dashboard !== "undefined") {
+                Dashboard.refresh();
+            }
+
+            alert(
+                "Portfolio saved successfully."
+            );
+        }
     },
 
     load() {
 
-        const data =
-            Storage.get("portfolio") || {};
+        const portfolio =
+            Storage.get("portfolio");
+
+        if (!portfolio) {
+            return;
+        }
 
         document.getElementById("bank").value =
-            data.bank || "";
+            portfolio.bank || "";
 
         document.getElementById("mf").value =
-            data.mf || "";
+            portfolio.mf || "";
 
         document.getElementById("chit").value =
-            data.chit || "";
+            portfolio.chit || "";
 
         document.getElementById("lend").value =
-            data.lend || "";
+            portfolio.lend || "";
+    },
+
+    getTotal() {
+
+        const portfolio =
+            Storage.get("portfolio") || {
+                bank: 0,
+                mf: 0,
+                chit: 0,
+                lend: 0
+            };
+
+        return (
+            Number(portfolio.bank) +
+            Number(portfolio.mf) +
+            Number(portfolio.chit) +
+            Number(portfolio.lend)
+        );
+    },
+
+    getData() {
+
+        return (
+            Storage.get("portfolio") || {
+                bank: 0,
+                mf: 0,
+                chit: 0,
+                lend: 0
+            }
+        );
     }
 };
