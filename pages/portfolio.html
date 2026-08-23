@@ -1,1 +1,109 @@
+<div class="space-y-4">
 
+    <div>
+        <h2 class="text-2xl font-bold text-slate-800">
+            Portfolio
+        </h2>
+        <p class="text-sm text-slate-500">
+            Manage your assets and investments
+        </p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-4">
+
+        <div class="space-y-4">
+
+            <div>
+                <label class="block text-sm font-medium mb-1">
+                    Bank Balance
+                </label>
+                <input
+                    id="bank"
+                    type="number"
+                    placeholder="Enter bank balance"
+                    class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">
+                    Mutual Funds
+                </label>
+                <input
+                    id="mf"
+                    type="number"
+                    placeholder="Enter mutual fund value"
+                    class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">
+                    Chit Funds
+                </label>
+                <input
+                    id="chit"
+                    type="number"
+                    placeholder="Enter chit fund value"
+                    class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">
+                    Lent Money
+                </label>
+                <input
+                    id="lend"
+                    type="number"
+                    placeholder="Enter lent money amount"
+                    class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-pink-500">
+            </div>
+
+            <button
+                onclick="Portfolio.save()"
+                class="w-full bg-green-600 text-white p-3 rounded-lg font-semibold hover:bg-green-700">
+                Save Portfolio
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-4">
+
+        <h3 class="text-lg font-semibold mb-3">
+            Current Assets
+        </h3>
+
+        <div class="space-y-2 text-sm">
+
+            <div class="flex justify-between">
+                <span>Bank</span>
+                <span id="portfolioBankDisplay">₹0</span>
+            </div>
+
+            <div class="flex justify-between">
+                <span>Mutual Funds</span>
+                <span id="portfolioMfDisplay">₹0</span>
+            </div>
+
+            <div class="flex justify-between">
+                <span>Chit Funds</span>
+                <span id="portfolioChitDisplay">₹0</span>
+            </div>
+
+            <div class="flex justify-between">
+                <span>Lent Money</span>
+                <span id="portfolioLendDisplay">₹0</span>
+            </div>
+
+            <hr>
+
+            <div class="flex justify-between font-bold text-lg">
+                <span>Total Assets</span>
+                <span id="portfolioTotalDisplay">₹0</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
