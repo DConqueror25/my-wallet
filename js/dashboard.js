@@ -10,25 +10,122 @@ const Dashboard = {
                 lend: 0
             };
 
+        const expenses =
+            Storage.get("expenses") || [];
+
+        const totalExpenses =
+            expenses.reduce(
+                (total, expense) =>
+                    total + Number(expense.amount || 0),
+                0
+            );
+
         const netWorth =
             Number(portfolio.bank) +
             Number(portfolio.mf) +
             Number(portfolio.chit) +
             Number(portfolio.lend);
 
-        document.getElementById("netWorth").innerText =
-            "₹" + netWorth.toLocaleString();
+        this.updateElement(
+            "netWorth",
+            netWorth
+        );
 
-        document.getElementById("bankValue").innerText =
-            "₹" + Number(portfolio.bank).toLocaleString();
+        this.updateElement(
+            "bankValue",
+            portfolio.bank
+        );
 
-        document.getElementById("mfValue").innerText =
-            "₹" + Number(portfolio.mf).toLocaleString();
+        this.updateElement(
+            "mfValue",
+            portfolio.mf
+        );
 
-        document.getElementById("chitValue").innerText =
-            "₹" + Number(portfolio.chit).toLocaleString();
+        this.updateElement(
+            "chitValue",
+            portfolio.chit
+        );
 
-        document.getElementById("lendValue").innerText =
-            "₹" + Number(portfolio.lend).toLocaleString();
+        this.updateElement(
+            "lendValue",
+            portfolio.lend
+        );
+
+        this.updateElement(
+            "expenseValue",
+            totalExpenses
+        );
+    },
+
+    updateElement(id, value) {
+
+        const element =
+            document.getElementById(id);
+
+        if (!element) {
+            return;
+        }
+
+        element.textContent =
+            "₹" +
+            Number(value || 0).toLocaleString(
+                "en-IN"
+            );
+    },
+
+    getNetWorth() {
+
+        const portfolio =
+            Storage.get("portfolio") || {
+                bank: 0,
+                mf: 0,
+                chit: 0,
+                lend: 0
+            };
+
+        return (
+            Number(portfolio.bank) +
+            Number(portfolio.mf) +
+            Number(portfolio.chit) +
+            Number(portfolio.lend)
+        );
+    },
+
+    getTotalExpenses() {
+
+        const expenses =
+            Storage.get("expenses") || [];
+
+        return expenses.reduce(
+            (total, expense) =>
+                total + Number(expense.amount || 0),
+            0
+        );
+    },
+
+    getSummary() {
+
+        const portfolio =
+            Storage.get("portfolio") || {
+                bank: 0,
+                mf: 0,
+                chit: 0,
+                lend: 0
+            };
+
+        return {
+
+            bank: Number(portfolio.bank),
+
+            mf: Number(portfolio.mf),
+
+            chit: Number(portfolio.chit),
+
+            lend: Number(portfolio.lend),
+
+            expenses: this.getTotalExpenses(),
+
+            netWorth: this.getNetWorth()
+        };
     }
 };
