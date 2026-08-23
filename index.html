@@ -1,45 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Finance Tracker</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Wallet</title>
 
     https://cdn.tailwindcss.comscript>
 </head>
-<body>
 
-    <div id="app">
+<body class="bg-gray-100">
 
-        <button onclick="showTab('dashboard')">
-            Dashboard
-        </button>
+    <div id="app" class="max-w-md mx-auto p-4">
 
-        <button onclick="showTab('portfolio')">
-            Portfolio
-        </button>
+        <h1 class="text-2xl font-bold text-center mb-6">
+            My Wallet
+        </h1>
 
-        <button onclick="showTab('expenses')">
-            Expenses
-        </button>
+        <!-- Navigation -->
+
+        <div class="flex gap-2 mb-6">
+
+            <button
+                onclick="showTab('dashboard')"
+                class="flex-1 bg-blue-500 text-white p-2 rounded">
+                Dashboard
+            </button>
+
+            <button
+                onclick="showTab('portfolio')"
+                class="flex-1 bg-green-500 text-white p-2 rounded">
+                Portfolio
+            </button>
+
+            <button
+                onclick="showTab('expenses')"
+                class="flex-1 bg-purple-500 text-white p-2 rounded">
+                Expenses
+            </button>
+
+        </div>
+
+        <!-- Dashboard -->
 
         <div id="dashboard">
-            Dashboard Content
+
+            <h2 class="text-xl font-bold mb-2">
+                Dashboard
+            </h2>
+
+            <p>
+                Welcome to My Wallet
+            </p>
+
         </div>
 
-        <div id="portfolio" style="display:none">
-            Portfolio Content
+        <!-- Portfolio -->
+
+        <div id="portfolio" class="hidden">
+
+            <h2 class="text-xl font-bold mb-4">
+                Portfolio
+            </h2>
+
+            <input
+                id="bank"
+                type="number"
+                placeholder="Bank Amount"
+                class="border p-2 w-full mb-2 rounded">
+
+            <input
+                id="mf"
+                type="number"
+                placeholder="Mutual Fund Amount"
+                class="border p-2 w-full mb-2 rounded">
+
+            <input
+                id="chit"
+                type="number"
+                placeholder="Chit Fund Amount"
+                class="border p-2 w-full mb-2 rounded">
+
+            <input
+                id="lend"
+                type="number"
+                placeholder="Lent Money"
+                class="border p-2 w-full mb-2 rounded">
+
+            <button
+                onclick="Portfolio.save()"
+                class="w-full bg-green-600 text-white p-2 rounded">
+                Save Portfolio
+            </button>
+
         </div>
 
-        <div id="expenses" style="display:none">
-            Expense Content
+        <!-- Expenses -->
+
+        <div id="expenses" class="hidden">
+
+            <h2 class="text-xl font-bold mb-2">
+                Expenses
+            </h2>
+
+            <p>
+                Expense module coming next.
+            </p>
+
         </div>
 
     </div>
 
     js/storage.jsscript>
-    js/utils.jsscript>
-    js/dashboard.jsscript>
     js/portfolio.jsscript>
-    js/expenses.jsscript>
     js/app.jsscript>
 
 </body>
