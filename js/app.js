@@ -1,26 +1,67 @@
-function showTab(tabId) {
+async function loadPage(page) {
+    try {
 
-    const tabs = [
-        "dashboard",
-        "portfolio",
-        "expenses"
-    ];
+        const response = await fetch(
+            `pages/${page}.html`
+        );
 
-    tabs.forEach(tab => {
-
-        const element =
-            document.getElementById(tab);
-
-        if (element) {
-            element.classList.add("hidden");
+        if (!response.ok) {
+            throw new Error(
+                `Unable to load ${page}.html`
+            );
         }
-    });
 
-    const selectedTab =
-        document.getElementById(tabId);
+        const html =
+            await response.text();
 
-    if (selectedTab) {
-        selectedTab.classList.remove("hidden");
+        document.getElementById(
+            "content"
+        ).innerHTML = html;
+
+        switch (page) {
+
+            case "dashboard":
+                if (
+                    typeof Dashboard !==
+                    "undefined"
+                ) {
+                    Dashboard.refresh();
+                }
+                break;
+
+            case "portfolio":
+                if (
+                    typeof Portfolio !==
+                    "undefined"
+                ) {
+                    Portfolio.load();
+                }
+                break;
+
+            case "expenses":
+                if (
+                    typeof Expenses !==
+                    "undefined"
+                ) {
+                    Expenses.load();
+                }
+                break;
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Page load failed:",
+            error
+        );
+
+        document.getElementById(
+            "content"
+        ).innerHTML = `
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                Failed to load page.
+            </div>
+        `;
     }
 }
 
@@ -28,19 +69,9 @@ function initializeApp() {
 
     try {
 
-        if (typeof Portfolio !== "undefined") {
-            Portfolio.load();
-        }
-
-        if (typeof Expenses !== "undefined") {
-            Expenses.load();
-        }
-
-        if (typeof Dashboard !== "undefined") {
-            Dashboard.refresh();
-        }
-
-        showTab("dashboard");
+        loadPage(
+            "dashboard"
+        );
 
     } catch (error) {
 
