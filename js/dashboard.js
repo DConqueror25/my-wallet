@@ -16,7 +16,8 @@ const Dashboard = {
         const totalExpenses =
             expenses.reduce(
                 (total, expense) =>
-                    total + Number(expense.amount || 0),
+                    total +
+                    Number(expense.amount || 0),
                 0
             );
 
@@ -55,6 +56,11 @@ const Dashboard = {
             "expenseValue",
             totalExpenses
         );
+
+        this.updateDistribution(
+            portfolio,
+            netWorth
+        );
     },
 
     updateElement(id, value) {
@@ -68,9 +74,72 @@ const Dashboard = {
 
         element.textContent =
             "₹" +
-            Number(value || 0).toLocaleString(
+            Number(
+                value || 0
+            ).toLocaleString(
                 "en-IN"
             );
+    },
+
+    updateDistribution(
+        portfolio,
+        netWorth
+    ) {
+
+        if (netWorth <= 0) {
+            netWorth = 1;
+        }
+
+        const items = [
+            {
+                value: Number(portfolio.bank),
+                percentId: "bankPercent",
+                barId: "bankBar"
+            },
+            {
+                value: Number(portfolio.mf),
+                percentId: "mfPercent",
+                barId: "mfBar"
+            },
+            {
+                value: Number(portfolio.chit),
+                percentId: "chitPercent",
+                barId: "chitBar"
+            },
+            {
+                value: Number(portfolio.lend),
+                percentId: "lendPercent",
+                barId: "lendBar"
+            }
+        ];
+
+        items.forEach(item => {
+
+            const percent =
+                Math.round(
+                    (item.value / netWorth) * 100
+                );
+
+            const percentElement =
+                document.getElementById(
+                    item.percentId
+                );
+
+            const barElement =
+                document.getElementById(
+                    item.barId
+                );
+
+            if (percentElement) {
+                percentElement.textContent =
+                    `${percent}%`;
+            }
+
+            if (barElement) {
+                barElement.style.width =
+                    `${percent}%`;
+            }
+        });
     },
 
     getNetWorth() {
@@ -98,7 +167,8 @@ const Dashboard = {
 
         return expenses.reduce(
             (total, expense) =>
-                total + Number(expense.amount || 0),
+                total +
+                Number(expense.amount || 0),
             0
         );
     },
@@ -114,18 +184,13 @@ const Dashboard = {
             };
 
         return {
-
             bank: Number(portfolio.bank),
-
             mf: Number(portfolio.mf),
-
             chit: Number(portfolio.chit),
-
             lend: Number(portfolio.lend),
-
             expenses: this.getTotalExpenses(),
-
             netWorth: this.getNetWorth()
         };
     }
+
 };
