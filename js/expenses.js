@@ -17,14 +17,20 @@ const Expenses = {
     add() {
 
         const input =
-            document.getElementById("expenseText");
+            document.getElementById(
+                "expenseText"
+            );
 
         const text =
-            input.value.trim().toLowerCase();
+            input.value
+                .trim()
+                .toLowerCase();
 
         if (!text) {
 
-            alert("Please enter an expense.");
+            alert(
+                "Please enter an expense."
+            );
 
             return;
         }
@@ -34,7 +40,9 @@ const Expenses = {
 
         if (!amountMatch) {
 
-            alert("Amount not found.");
+            alert(
+                "Amount not found."
+            );
 
             return;
         }
@@ -42,20 +50,23 @@ const Expenses = {
         const amount =
             Number(amountMatch[0]);
 
-        let category = "other";
+        let category =
+            "other";
 
         for (const item of this.categories) {
 
-            if (text.includes(item)) {
-
+            if (
+                text.includes(item)
+            ) {
                 category = item;
-
                 break;
             }
         }
 
         const expenses =
-            Storage.get("expenses") || [];
+            Storage.get(
+                "expenses"
+            ) || [];
 
         expenses.push({
 
@@ -67,7 +78,11 @@ const Expenses = {
 
             description: text,
 
-            date: new Date().toLocaleDateString("en-IN")
+            date: new Date()
+                .toLocaleDateString(
+                    "en-IN"
+                )
+
         });
 
         Storage.set(
@@ -85,13 +100,19 @@ const Expenses = {
     load() {
 
         const expenses =
-            Storage.get("expenses") || [];
+            Storage.get(
+                "expenses"
+            ) || [];
 
         const container =
-            document.getElementById("expenseList");
+            document.getElementById(
+                "expenseList"
+            );
 
         const count =
-            document.getElementById("expenseCount");
+            document.getElementById(
+                "expenseCount"
+            );
 
         if (!container) {
             return;
@@ -103,7 +124,9 @@ const Expenses = {
                 `${expenses.length} Records`;
         }
 
-        if (expenses.length === 0) {
+        if (
+            expenses.length === 0
+        ) {
 
             container.innerHTML = `
                 <div class="text-center text-gray-400 py-4">
@@ -126,7 +149,7 @@ const Expenses = {
                         <div class="flex justify-between">
 
                             <div class="font-semibold">
-                                ₹${expense.amount.toLocaleString("en-IN")}
+                                ₹${Number(expense.amount).toLocaleString("en-IN")}
                             </div>
 
                             <div class="text-sm text-gray-500">
@@ -143,28 +166,67 @@ const Expenses = {
                             ${expense.description}
                         </div>
 
+                        <button
+                            onclick="Expenses.delete(${expense.id})"
+                            class="mt-3 bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">
+                            Delete
+                        </button>
+
                     </div>
                 `;
             });
 
-        container.innerHTML = html;
+        container.innerHTML =
+            html;
+    },
+
+    delete(id) {
+
+        const expenses =
+            Storage.get(
+                "expenses"
+            ) || [];
+
+        const updated =
+            expenses.filter(
+                expense =>
+                    expense.id !== id
+            );
+
+        Storage.set(
+            "expenses",
+            updated
+        );
+
+        this.load();
+
+        Dashboard.refresh();
     },
 
     getTotal() {
 
         const expenses =
-            Storage.get("expenses") || [];
+            Storage.get(
+                "expenses"
+            ) || [];
 
         return expenses.reduce(
             (sum, item) =>
-                sum + Number(item.amount || 0),
+                sum +
+                Number(
+                    item.amount || 0
+                ),
             0
         );
     },
 
     clearAll() {
 
-        if (!confirm("Delete all expenses?")) {
+        if (
+            !confirm(
+                "Delete all expenses?"
+            )
+        ) {
             return;
         }
 
@@ -177,4 +239,5 @@ const Expenses = {
 
         Dashboard.refresh();
     }
+
 };
